@@ -15,12 +15,20 @@
       place-items: center;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
+
     .wrap{
       width: min(720px, 92vw);
       display: grid;
       gap: 14px;
       padding: 18px 0;
     }
+
+    .row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+
     button{
       width: 100%;
       border: 0;
@@ -36,20 +44,35 @@
       user-select: none;
       -webkit-tap-highlight-color: transparent;
     }
+
     button:active { transform: scale(0.99); opacity: .92; }
     button:focus { outline: 2px solid rgba(255,255,255,.55); outline-offset: 4px; }
+
   </style>
 </head>
 <body>
   <div class="wrap">
-    <button id="btnKizil" type="button">KIZIL</button>
-    <button id="btnSarisin" type="button">SARIŞIN</button>
-    <button id="btnEsmer" type="button">ESMER</button>
+
+    <div class="row">
+      <button id="btnKizil">KIZIL PROMPT</button>
+      <button id="btnKizilResim">KIZIL RESİM</button>
+    </div>
+
+    <div class="row">
+      <button id="btnSarisin">SARIŞIN PROMPT</button>
+      <button id="btnSarisinResim">SARIŞIN RESİM</button>
+    </div>
+
+    <div class="row">
+      <button id="btnEsmer">ESMER PROMPT</button>
+      <button id="btnEsmerResim">ESMER RESİM</button>
+    </div>
+
   </div>
 
-  <script>
-    const PROMPTS = {
-      KIZIL: `A COMPLETELY NEW image will be created from scratch. DO NOT edit, paint over, or alter the provided images. Generate a brand new photograph based on the following strict rules:
+<script>
+
+const textKizil = `A COMPLETELY NEW image will be created from scratch. DO NOT edit, paint over, or alter the provided images. Generate a brand new photograph based on the following strict rules:
 
 SUBJECT IDENTITY, HEAD & HAIR (Take ONLY from Prompt and Image 1):
 The subject is a young woman with an oval face shape, fair skin with highly detailed natural skin texture, visible pores, and natural skin redness on cheeks. Hazel-green almond eyes, natural unplucked eyebrows. 
@@ -68,16 +91,10 @@ ENVIRONMENT (Take from Image 3 if provided, otherwise Image 2):
 If a third image is attached, use that specific location as the background environment. If there is no third image, recreate the background style of the second image. The environmental lighting and day/night mood must always match the lighting hitting the subject.
 
 TECHNICAL:
-Highly detailed, 8k photorealistic. Aspect ratio MUST be 9:16.`
-    };
+Highly detailed, 8k photorealistic. Aspect ratio MUST be 9:16.`;
 
-    // İstersen ileride ayırmak için hazır; şu an KIZIL butonu komple metni kopyalıyor.
-    // Senin isteğin: her buton kendi promptunu kopyalasın.
-    const ONLY_KIZIL = false;
 
-    const textKizil = PROMPTS.KIZIL; // içinde 3 prompt var (kızıl+sarışın+esmer)
-
-    const textSarisin = `A COMPLETELY NEW image will be created from scratch. DO NOT edit, paint over, or alter the provided images. Generate a brand new photograph based on the following strict rules:
+const textSarisin = `A COMPLETELY NEW image will be created from scratch. DO NOT edit, paint over, or alter the provided images. Generate a brand new photograph based on the following strict rules:
 
 SUBJECT IDENTITY, HEAD & HAIR (Take ONLY from Prompt and Image 1):
 The subject is a young woman with an oval face shape, fair skin with natural texture and soft redness on the cheeks. Warm brown almond-shaped eyes, natural medium eyebrows. 
@@ -98,7 +115,8 @@ If a third image is attached, use that specific location as the background envir
 TECHNICAL:
 Highly detailed, 8k photorealistic. Aspect ratio MUST be 9:16.`;
 
-    const textEsmer = `A COMPLETELY NEW image will be created from scratch. DO NOT edit, paint over, or alter the provided images. Generate a brand new photograph based on the following strict rules:
+
+const textEsmer = `A COMPLETELY NEW image will be created from scratch. DO NOT edit, paint over, or alter the provided images. Generate a brand new photograph based on the following strict rules:
 
 SUBJECT IDENTITY, HEAD & HAIR (Take ONLY from Prompt and Image 1):
 The subject is a young woman with a soft oval face shape, fair light neutral skin with highly detailed natural skin texture, visible pores, subtle cheek texture and mild natural redness. Warm brown almond eyes, natural medium-thickness straight eyebrows. 
@@ -119,42 +137,46 @@ If a third image is attached, use that specific location as the background envir
 TECHNICAL:
 Highly detailed, 8k photorealistic. Aspect ratio MUST be 9:16.`;
 
-    async function copyText(text, btn){
-      try{
-        await navigator.clipboard.writeText(text);
-        const old = btn.textContent;
-        btn.textContent = "KOPYALANDI";
-        setTimeout(()=> btn.textContent = old, 700);
-      } catch (e) {
-        // iOS/Eski tarayıcılar için yedek:
-        const ta = document.createElement("textarea");
-        ta.value = text;
-        ta.style.position = "fixed";
-        ta.style.left = "-9999px";
-        document.body.appendChild(ta);
-        ta.focus();
-        ta.select();
-        try { document.execCommand("copy"); } catch(_) {}
-        document.body.removeChild(ta);
-        const old = btn.textContent;
-        btn.textContent = "KOPYALANDI";
-        setTimeout(()=> btn.textContent = old, 700);
-      }
-    }
 
-    document.getElementById("btnKizil").addEventListener("click", (e)=>{
-      // KIZIL butonu: sadece Kızıl mı, yoksa senin gönderdiğin full metin mi?
-      // Burada KIZIL: Kızıl bölümünü değil, TAM GÖNDERDİĞİN metni kopyalıyor.
-      copyText(textKizil, e.currentTarget);
-    });
+const kizilImg = "https://img.webme.com/pic/b/bg-resim-yukleme/1-KIZIL.png";
+const sarisinImg = "https://img.webme.com/pic/b/bg-resim-yukleme/2-SARISIN.png";
+const esmerImg = "https://img.webme.com/pic/b/bg-resim-yukleme/3-ESMER.png";
 
-    document.getElementById("btnSarisin").addEventListener("click", (e)=>{
-      copyText(textSarisin, e.currentTarget);
-    });
 
-    document.getElementById("btnEsmer").addEventListener("click", (e)=>{
-      copyText(textEsmer, e.currentTarget);
-    });
-  </script>
+async function copyText(text, btn){
+  try{
+    await navigator.clipboard.writeText(text);
+    const old = btn.textContent;
+    btn.textContent = "KOPYALANDI";
+    setTimeout(()=> btn.textContent = old, 700);
+  } catch (e) {
+
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.left = "-9999px";
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    document.execCommand("copy");
+    document.body.removeChild(ta);
+
+    const old = btn.textContent;
+    btn.textContent = "KOPYALANDI";
+    setTimeout(()=> btn.textContent = old, 700);
+  }
+}
+
+
+document.getElementById("btnKizil").onclick = e => copyText(textKizil,e.target);
+document.getElementById("btnSarisin").onclick = e => copyText(textSarisin,e.target);
+document.getElementById("btnEsmer").onclick = e => copyText(textEsmer,e.target);
+
+document.getElementById("btnKizilResim").onclick = e => copyText(kizilImg,e.target);
+document.getElementById("btnSarisinResim").onclick = e => copyText(sarisinImg,e.target);
+document.getElementById("btnEsmerResim").onclick = e => copyText(esmerImg,e.target);
+
+</script>
+
 </body>
 </html>
