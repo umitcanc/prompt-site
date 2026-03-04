@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Prompt Kopyala</title>
+  <style>
+    :root { --bg:#000; --btn:#fff; --txt:#000; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      display: grid;
+      place-items: center;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .wrap{
+      width: min(720px, 92vw);
+      display: grid;
+      gap: 14px;
+      padding: 18px 0;
+    }
+    button{
+      width: 100%;
+      border: 0;
+      border-radius: 18px;
+      background: var(--btn);
+      color: var(--txt);
+      font-weight: 900;
+      letter-spacing: .8px;
+      padding: 18px 16px;
+      font-size: clamp(16px, 4.5vw, 22px);
+      cursor: pointer;
+      transition: transform .06s ease, opacity .15s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    button:active { transform: scale(0.99); opacity: .92; }
+    button:focus { outline: 2px solid rgba(255,255,255,.55); outline-offset: 4px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <button id="btnKizil" type="button">KIZIL</button>
+    <button id="btnSarisin" type="button">SARIŞIN</button>
+    <button id="btnEsmer" type="button">ESMER</button>
+  </div>
+
+  <script>
+    const PROMPTS = {
+      KIZIL: `---------- KIZIL ----------
+
+A COMPLETELY NEW image will be created from scratch. DO NOT edit, paint over, or alter the provided images. Generate a brand new photograph based on the following strict rules:
+
+SUBJECT IDENTITY, HEAD & HAIR (Take ONLY from Prompt and Image 1):
+The subject is a young woman with an oval face shape, fair skin with highly detailed natural skin texture, visible pores, and natural skin redness on cheeks. Hazel-green almond eyes, natural unplucked eyebrows. 
+HAIR & MAKEUP (CRITICAL STRICT RULE): Auburn copper hair color. The hairstyle, hair length, makeup style (or lack thereof), and entire physical appearance of the head MUST come exclusively from Image 1. ABSOLUTELY DO NOT copy the hairstyle, bangs, makeup, eyeliner, glitter, or any facial styling from Image 2.
+FACIAL DETAILS: She has a distinct cluster of four small beauty marks on the right side of her chin and lower jawline, and a single prominent mole on the middle of her left cheek. Subtle natural imperfections on the lower face. Natural straight nose, medium natural pink lips with distinct cupid's bow.
+
+BODY TYPE & CLOTHING:
+BODY: A soft and curvy hourglass figure. Naturally fuller upper-body proportions. A slim, gently tapered waist creating visible contrast with the upper body and hips. Soft, natural skin texture. 
+CLOTHING: The clothing should resemble the garment type in Image 2 but MUST be slightly altered in color and specific style. The clothing must perfectly fit the curvy hourglass figure described above.
+
+POSE, EXPRESSION AND ATMOSPHERE (Take ONLY the "Action/Emotion" from Image 2):
+Recreate the exact pose, body language, camera angle, and lighting/shadows from Image 2. 
+EMOTION (CRITICAL): Capture the exact facial expression, emotion, and facial muscle tension from Image 2 (e.g., crying, smiling, serious). However, you must apply this pure emotion to the face from Image 1 WITHOUT transferring any artificial makeup or physical styling from Image 2.
+
+ENVIRONMENT (Take from Image 3 if provided, otherwise Image 2):
+If a third image is attached, use that specific location as the background environment. If there is no third image, recreate the background style of the second image. The environmental lighting and day/night mood must always match the lighting hitting the subject.
+
+TECHNICAL:
+Highly detailed, 8k photorealistic. Aspect ratio MUST be 9:16.
+
+---------- SARIŞIN ----------
+
+A COMPLETELY NEW image will be created from scratch. DO NOT edit, paint over, or alter the provided images. Generate a brand new photograph based on the following strict rules:
+
+SUBJECT IDENTITY, HEAD & HAIR (Take ONLY from Prompt and Image 1):
+The subject is a young woman with an oval face shape, fair skin with natural texture and soft redness on the cheeks. Warm brown almond-shaped eyes, natural medium eyebrows. 
+HAIR & MAKEUP (CRITICAL STRICT RULE): Light brown hair with slightly lighter ends, styled half-up. The hairstyle, hair length, makeup style (or lack thereof), and entire physical appearance of the head MUST come exclusively from Image 1. ABSOLUTELY DO NOT copy the hairstyle, bangs, makeup, eyeliner, glitter, or any facial styling from Image 2.
+FACIAL DETAILS: She has light freckles across the nose and upper cheeks. Natural straight nose, medium soft pink lips with a subtle cupid’s bow. No makeup.
+
+BODY TYPE & CLOTHING:
+BODY: A soft and curvy hourglass figure. Naturally fuller upper-body proportions. A slim, gently tapered waist creating visible contrast with the upper body and hips. Soft, natural skin texture. 
+CLOTHING: The clothing should resemble the garment type in Image 2 but MUST be slightly altered in color and specific style. The clothing must perfectly fit the curvy hourglass figure described above.
+
+POSE, EXPRESSION AND ATMOSPHERE (Take ONLY the "Action/Emotion" from Image 2):
+Recreate the exact pose, body language, camera angle, and lighting/shadows from Image 2. 
+EMOTION (CRITICAL): Capture the exact facial expression, emotion, and facial muscle tension from Image 2 (e.g., crying, smiling, serious). However, you must apply this pure emotion to the face from Image 1 WITHOUT transferring any artificial makeup or physical styling from Image 2.
+
+ENVIRONMENT (Take from Image 3 if provided, otherwise Image 2):
+If a third image is attached, use that specific location as the background environment. If there is no third image, recreate the background style of the second image. The environmental lighting and day/night mood must always match the lighting hitting the subject.
+
+TECHNICAL:
+Highly detailed, 8k photorealistic. Aspect ratio MUST be 9:16.
+
+---------- ESMER ----------
+
+A COMPLETELY NEW image will be created from scratch. DO NOT edit, paint over, or alter the provided images. Generate a brand new photograph based on the following strict rules:
+
+SUBJECT IDENTITY, HEAD & HAIR (Take ONLY from Prompt and Image 1):
+The subject is a young woman with a soft oval face shape, fair light neutral skin with highly detailed natural skin texture, visible pores, subtle cheek texture and mild natural redness. Warm brown almond eyes, natural medium-thickness straight eyebrows. 
+HAIR & MAKEUP (CRITICAL STRICT RULE): Long straight center-parted medium brown hair. The hairstyle, hair length, makeup style (or lack thereof), and entire physical appearance of the head MUST come exclusively from Image 1. ABSOLUTELY DO NOT copy the hairstyle, bangs, makeup, eyeliner, glitter, or any facial styling from Image 2.
+FACIAL DETAILS: Subtle natural skin irregularities on cheeks, minimal realistic imperfections. Natural straight narrow nose, medium soft pink lips with gentle cupid’s bow, lower lip slightly fuller. No makeup.
+
+BODY TYPE & CLOTHING:
+BODY: An hourglass figure with soft, natural skin texture (not athletic). A natural, feminine upper-body silhouette. A slim, gently tapered waist creating a classic hourglass profile. The upper body appears balanced and feminine while the waist remains petite.
+CLOTHING: The clothing should resemble the garment type in Image 2 but MUST be slightly altered in color and specific style. The clothing must perfectly fit the curvy hourglass figure described above.
+
+POSE, EXPRESSION AND ATMOSPHERE (Take ONLY the "Action/Emotion" from Image 2):
+Recreate the exact pose, body language, camera angle, and lighting/shadows from Image 2. 
+EMOTION (CRITICAL PURE EMOTION WITHOUT TRANSFERRING STYLING): Capture the exact facial expression, emotion, and facial muscle tension from Image 2 (e.g., crying, smiling, serious). However, you must apply this pure emotion to the face from Image 1 WITHOUT transferring any artificial makeup or physical styling from Image 2.
+
+ENVIRONMENT (Take from Image 3 if provided, otherwise Image 2):
+If a third image is attached, use that specific location as the background environment. If there is no third image, recreate the background style of the second image. The environmental lighting and day/night mood must always match the lighting hitting the subject.
+
+TECHNICAL:
+Highly detailed, 8k photorealistic. Aspect ratio MUST be 9:16.`
+    };
+
+    // İstersen ileride ayırmak için hazır; şu an KIZIL butonu komple metni kopyalıyor.
+    // Senin isteğin: her buton kendi promptunu kopyalasın.
+    const ONLY_KIZIL = false;
+
+    const textKizil = PROMPTS.KIZIL; // içinde 3 prompt var (kızıl+sarışın+esmer)
+
+    const textSarisin = `---------- SARIŞIN ----------
+
+A COMPLETELY NEW image will be created from scratch. DO NOT edit, paint over, or alter the provided images. Generate a brand new photograph based on the following strict rules:
+
+SUBJECT IDENTITY, HEAD & HAIR (Take ONLY from Prompt and Image 1):
+The subject is a young woman with an oval face shape, fair skin with natural texture and soft redness on the cheeks. Warm brown almond-shaped eyes, natural medium eyebrows. 
+HAIR & MAKEUP (CRITICAL STRICT RULE): Light brown hair with slightly lighter ends, styled half-up. The hairstyle, hair length, makeup style (or lack thereof), and entire physical appearance of the head MUST come exclusively from Image 1. ABSOLUTELY DO NOT copy the hairstyle, bangs, makeup, eyeliner, glitter, or any facial styling from Image 2.
+FACIAL DETAILS: She has light freckles across the nose and upper cheeks. Natural straight nose, medium soft pink lips with a subtle cupid’s bow. No makeup.
+
+BODY TYPE & CLOTHING:
+BODY: A soft and curvy hourglass figure. Naturally fuller upper-body proportions. A slim, gently tapered waist creating visible contrast with the upper body and hips. Soft, natural skin texture. 
+CLOTHING: The clothing should resemble the garment type in Image 2 but MUST be slightly altered in color and specific style. The clothing must perfectly fit the curvy hourglass figure described above.
+
+POSE, EXPRESSION AND ATMOSPHERE (Take ONLY the "Action/Emotion" from Image 2):
+Recreate the exact pose, body language, camera angle, and lighting/shadows from Image 2. 
+EMOTION (CRITICAL): Capture the exact facial expression, emotion, and facial muscle tension from Image 2 (e.g., crying, smiling, serious). However, you must apply this pure emotion to the face from Image 1 WITHOUT transferring any artificial makeup or physical styling from Image 2.
+
+ENVIRONMENT (Take from Image 3 if provided, otherwise Image 2):
+If a third image is attached, use that specific location as the background environment. If there is no third image, recreate the background style of the second image. The environmental lighting and day/night mood must always match the lighting hitting the subject.
+
+TECHNICAL:
+Highly detailed, 8k photorealistic. Aspect ratio MUST be 9:16.`;
+
+    const textEsmer = `---------- ESMER ----------
+
+A COMPLETELY NEW image will be created from scratch. DO NOT edit, paint over, or alter the provided images. Generate a brand new photograph based on the following strict rules:
+
+SUBJECT IDENTITY, HEAD & HAIR (Take ONLY from Prompt and Image 1):
+The subject is a young woman with a soft oval face shape, fair light neutral skin with highly detailed natural skin texture, visible pores, subtle cheek texture and mild natural redness. Warm brown almond eyes, natural medium-thickness straight eyebrows. 
+HAIR & MAKEUP (CRITICAL STRICT RULE): Long straight center-parted medium brown hair. The hairstyle, hair length, makeup style (or lack thereof), and entire physical appearance of the head MUST come exclusively from Image 1. ABSOLUTELY DO NOT copy the hairstyle, bangs, makeup, eyeliner, glitter, or any facial styling from Image 2.
+FACIAL DETAILS: Subtle natural skin irregularities on cheeks, minimal realistic imperfections. Natural straight narrow nose, medium soft pink lips with gentle cupid’s bow, lower lip slightly fuller. No makeup.
+
+BODY TYPE & CLOTHING:
+BODY: An hourglass figure with soft, natural skin texture (not athletic). A natural, feminine upper-body silhouette. A slim, gently tapered waist creating a classic hourglass profile. The upper body appears balanced and feminine while the waist remains petite.
+CLOTHING: The clothing should resemble the garment type in Image 2 but MUST be slightly altered in color and specific style. The clothing must perfectly fit the curvy hourglass figure described above.
+
+POSE, EXPRESSION AND ATMOSPHERE (Take ONLY the "Action/Emotion" from Image 2):
+Recreate the exact pose, body language, camera angle, and lighting/shadows from Image 2. 
+EMOTION (CRITICAL PURE EMOTION WITHOUT TRANSFERRING STYLING): Capture the exact facial expression, emotion, and facial muscle tension from Image 2 (e.g., crying, smiling, serious). However, you must apply this pure emotion to the face from Image 1 WITHOUT transferring any artificial makeup or physical styling from Image 2.
+
+ENVIRONMENT (Take from Image 3 if provided, otherwise Image 2):
+If a third image is attached, use that specific location as the background environment. If there is no third image, recreate the background style of the second image. The environmental lighting and day/night mood must always match the lighting hitting the subject.
+
+TECHNICAL:
+Highly detailed, 8k photorealistic. Aspect ratio MUST be 9:16.`;
+
+    async function copyText(text, btn){
+      try{
+        await navigator.clipboard.writeText(text);
+        const old = btn.textContent;
+        btn.textContent = "KOPYALANDI";
+        setTimeout(()=> btn.textContent = old, 700);
+      } catch (e) {
+        // iOS/Eski tarayıcılar için yedek:
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        try { document.execCommand("copy"); } catch(_) {}
+        document.body.removeChild(ta);
+        const old = btn.textContent;
+        btn.textContent = "KOPYALANDI";
+        setTimeout(()=> btn.textContent = old, 700);
+      }
+    }
+
+    document.getElementById("btnKizil").addEventListener("click", (e)=>{
+      // KIZIL butonu: sadece Kızıl mı, yoksa senin gönderdiğin full metin mi?
+      // Burada KIZIL: Kızıl bölümünü değil, TAM GÖNDERDİĞİN metni kopyalıyor.
+      copyText(textKizil, e.currentTarget);
+    });
+
+    document.getElementById("btnSarisin").addEventListener("click", (e)=>{
+      copyText(textSarisin, e.currentTarget);
+    });
+
+    document.getElementById("btnEsmer").addEventListener("click", (e)=>{
+      copyText(textEsmer, e.currentTarget);
+    });
+  </script>
+</body>
+</html>
