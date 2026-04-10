@@ -68,6 +68,11 @@
       <button id="btnEsmerResim">ESMER RESİM</button>
     </div>
 
+    <div class="row">
+      <button id="btnDuru">DURU PROMT</button>
+      <button id="btnDuruResim">DURU RESİM</button>
+    </div>
+
   </div>
 
 <script>
@@ -145,10 +150,30 @@ If a third image is attached, use that specific location as the background envir
 
 Highly detailed, 4k photorealistic.`;
 
+const textDuru = `A COMPLETELY NEW photograph will be created from scratch. DO NOT edit, paint over, or alter the provided images. Generate a brand new photograph based on the following strict rules:
+
+PERSON IDENTITY, HEAD & HAIR (Take ONLY from Prompt and Image 1):
+The person is a young woman with an oval face shape, natural skin texture featuring highly detailed visible pores and slight natural imperfections, not overly smoothed. Blue-green almond eyes, groomed, naturally shaped ash-blonde eyebrows derived from Image 1. 
+
+HAIR & MAKEUP (CRITICAL STRICT RULE): Blonde hair with subtle darker roots, with its distinct texture. The hairstyle is center-parted, shoulder-length, with soft, loose waves. Makeup must be kept minimal and natural with a matte finish, avoiding a 'caked' look; includes a natural base with subtle countour, mascara, and a distinct berry-pink matte lipstick. The hairstyle, hair length, makeup style, and entire physical appearance of the head MUST come exclusively from Image 1. ABSOLUTELY DO NOT copy any facial styling or specific make-up from Image 2.
+
+FACIAL DETAILS: Flawless complexion is NOT the goal. High-detail skin texture of Image 1 is mandatory, showing the intricate skin pore structure and natural hair fiber detail. Straight, thin nose, full lips with a clear cupid's bow.
+
+BODY TYPE & CLOTHING:
+BODY: A soft and curvy hourglass figure. Naturally fuller upper-body proportions. A slim, gently tapered waist creating visible contrast with the upper body and hips. Smooth skin texture. 
+
+POSE, EXPRESSION AND ATMOSPHERE (Take ONLY the "Action/Emotion" from Image 2):
+Capture of the exact pose, body language, camera angle of Image 2. Natural film grain must be present.
+
+EMOTION (CRITICAL): Capture the exact facial expression, emotion, and facial muscle tension from Image 2. Apply this pure emotion to the face from Image 1 WITHOUT transferring any artificial makeup or physical styling from Image 2.
+
+Highly detailed, 4k photorealistic, natural film grain. No oversmoothing.`;
+
 
 const kizilImg = "https://img.webme.com/pic/b/bg-resim-yukleme/1-KIZIL.png";
 const sarisinImg = "https://img.webme.com/pic/b/bg-resim-yukleme/2-SARISIN.png";
 const esmerImg = "https://img.webme.com/pic/b/bg-resim-yukleme/3-ESMER.png";
+const duruImg = "https://resimeklenecek.com";
 
 
 async function copyText(text, btn){
@@ -179,10 +204,12 @@ async function copyText(text, btn){
 document.getElementById("btnKizil").onclick = e => copyText(textKizil,e.target);
 document.getElementById("btnSarisin").onclick = e => copyText(textSarisin,e.target);
 document.getElementById("btnEsmer").onclick = e => copyText(textEsmer,e.target);
+document.getElementById("btnDuru").onclick = e => copyText(textDuru,e.target);
 
 document.getElementById("btnKizilResim").onclick = e => copyText(kizilImg,e.target);
 document.getElementById("btnSarisinResim").onclick = e => copyText(sarisinImg,e.target);
 document.getElementById("btnEsmerResim").onclick = e => copyText(esmerImg,e.target);
+document.getElementById("btnDuruResim").onclick = e => copyText(duruImg,e.target);
 
 </script>
 
