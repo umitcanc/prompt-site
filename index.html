@@ -72,48 +72,53 @@
 
 <script>
 
-const textKizil = `A COMPLETELY NEW image will be created from scratch. DO NOT edit, paint over, or alter the provided images. Generate a brand new photograph based on the following strict rules:
+const textKizil = `A COMPLETELY NEW image will be created from scratch. DO NOT edit, paint over, or alter the provided images. Generate a new photograph based on the following strict rules:
 
-SUBJECT IDENTITY, HEAD & HAIR (Take ONLY from Prompt and Image 1):
-The subject is a young woman with an oval face shape, fair skin with highly detailed natural skin texture, visible pores, and natural skin redness on cheeks. Hazel-green almond eyes, natural unplucked eyebrows. 
-HAIR & MAKEUP (CRITICAL STRICT RULE): Auburn copper hair color. The hairstyle, hair length, makeup style (or lack thereof), and entire physical appearance of the head MUST come exclusively from Image 1. ABSOLUTELY DO NOT copy the hairstyle, bangs, makeup, eyeliner, glitter, or any facial styling from Image 2.
+PERSON IDENTITY, HEAD & HAIR (Take ONLY from Prompt and Image 1):
+The person is a young woman with an oval face shape, fair skin with highly detailed natural skin texture, visible pores, and natural skin redness on cheeks. Hazel-green almond eyes, natural unplucked eyebrows. 
+
+HAIR & MAKEUP (CRITICAL STRICT RULE): Auburn copper hair color. The hairstyle, hair length, makeup style, and entire physical appearance of the head MUST come exclusively from Image 1. ABSOLUTELY DO NOT copy the hairstyle, bangs, makeup, eyeliner, glitter, or any facial styling from Image 2.
+
 FACIAL DETAILS: She has a distinct cluster of four small beauty marks on the right side of her chin and lower jawline, and a single prominent mole on the middle of her left cheek. Subtle natural imperfections on the lower face. Natural straight nose, medium natural pink lips with distinct cupid's bow.
 
 BODY TYPE & CLOTHING:
 BODY: A soft and curvy hourglass figure. Naturally fuller upper-body proportions. A slim, gently tapered waist creating visible contrast with the upper body and hips. Soft, natural skin texture. 
-CLOTHING: The clothing should resemble the garment type in Image 2 but MUST be slightly altered in color and specific style. The clothing must perfectly fit the curvy hourglass figure described above.
+
+CLOTHING: The clothing should resemble the garment type in Image 2 but MUST be slightly altered in color. The clothing must perfectly fit the curvy hourglass figure described above.
 
 POSE, EXPRESSION AND ATMOSPHERE (Take ONLY the "Action/Emotion" from Image 2):
-Recreate the exact pose, body language, camera angle, and lighting/shadows from Image 2. 
-EMOTION (CRITICAL): Capture the exact facial expression, emotion, and facial muscle tension from Image 2 (e.g., crying, smiling, serious). However, you must apply this pure emotion to the face from Image 1 WITHOUT transferring any artificial makeup or physical styling from Image 2.
+Recreate the exact pose, body language, camera angle, and lighting/shadows from Image 2.
+ 
+EMOTION (CRITICAL): Capture the exact facial expression, emotion, and facial muscle tension from Image 2. However, you must apply this pure emotion to the face from Image 1 WITHOUT transferring any artificial makeup or physical styling from Image 2.
 
 ENVIRONMENT (Take from Image 3 if provided, otherwise Image 2):
-If a third image is attached, use that specific location as the background environment. If there is no third image, recreate the background style of the second image. The environmental lighting and day/night mood must always match the lighting hitting the subject.
+If a third image is attached, use that specific location as the background environment. If there is no third image, recreate the background style of the second image. The environmental lighting and day/night mood must always match the lighting hitting the person.
 
-TECHNICAL:
-Highly detailed, 8k photorealistic. Aspect ratio MUST be 9:16.`;
+Highly detailed, 4k photorealistic.`;
 
 
-const textSarisin = `A COMPLETELY NEW image will be created from scratch. DO NOT edit, paint over, or alter the provided images. Generate a brand new photograph based on the following strict rules:
+const textSarisin = `A COMPLETELY NEW image will be created from scratch. DO NOT edit, paint over, or alter the provided images. Generate a new photograph based on the following strict rules:
 
-SUBJECT IDENTITY, HEAD & HAIR (Take ONLY from Prompt and Image 1):
-The subject is a young woman with an oval face shape, fair skin with natural texture and soft redness on the cheeks. Warm brown almond-shaped eyes, natural medium eyebrows. 
-HAIR & MAKEUP (CRITICAL STRICT RULE): Light brown hair with slightly lighter ends, styled half-up. The hairstyle, hair length, makeup style (or lack thereof), and entire physical appearance of the head MUST come exclusively from Image 1. ABSOLUTELY DO NOT copy the hairstyle, bangs, makeup, eyeliner, glitter, or any facial styling from Image 2.
-FACIAL DETAILS: She has light freckles across the nose and upper cheeks. Natural straight nose, medium soft pink lips with a subtle cupid’s bow. No makeup.
+PERSON IDENTITY, HEAD & HAIR (Take ONLY from Prompt and Image 1):
+The person is a young woman with an oval face shape, fair skin with natural texture and soft redness on the cheeks. Warm brown almond-shaped eyes, natural medium eyebrows. 
+
+HAIR & MAKEUP (CRITICAL STRICT RULE): Light brown hair with slightly lighter ends, styled half-up. The hairstyle, hair length, makeup style, and entire physical appearance of the head MUST come exclusively from Image 1. ABSOLUTELY DO NOT copy the hairstyle, bangs, makeup, eyeliner, glitter, or any facial styling from Image 2.
+
+FACIAL DETAILS: She has light freckles across the nose and upper cheeks. Natural straight nose, medium soft pink lips with a subtle cupid’s bow.
 
 BODY TYPE & CLOTHING:
 BODY: A soft and curvy hourglass figure. Naturally fuller upper-body proportions. A slim, gently tapered waist creating visible contrast with the upper body and hips. Soft, natural skin texture. 
-CLOTHING: The clothing should resemble the garment type in Image 2 but MUST be slightly altered in color and specific style. The clothing must perfectly fit the curvy hourglass figure described above.
+
+CLOTHING: The clothing should resemble the garment type in Image 2 but MUST be slightly altered in color. The clothing must perfectly fit the curvy hourglass figure described above.
 
 POSE, EXPRESSION AND ATMOSPHERE (Take ONLY the "Action/Emotion" from Image 2):
 Recreate the exact pose, body language, camera angle, and lighting/shadows from Image 2. 
-EMOTION (CRITICAL): Capture the exact facial expression, emotion, and facial muscle tension from Image 2 (e.g., crying, smiling, serious). However, you must apply this pure emotion to the face from Image 1 WITHOUT transferring any artificial makeup or physical styling from Image 2.
+EMOTION (CRITICAL): Capture the exact facial expression, emotion, and facial muscle tension from Image 2. However, you must apply this pure emotion to the face from Image 1 WITHOUT transferring any artificial makeup or physical styling from Image 2.
 
 ENVIRONMENT (Take from Image 3 if provided, otherwise Image 2):
-If a third image is attached, use that specific location as the background environment. If there is no third image, recreate the background style of the second image. The environmental lighting and day/night mood must always match the lighting hitting the subject.
+If a third image is attached, use that specific location as the background environment. If there is no third image, recreate the background style of the second image. The environmental lighting and day/night mood must always match the lighting hitting the person.
 
-TECHNICAL:
-Highly detailed, 8k photorealistic. Aspect ratio MUST be 9:16.`;
+Highly detailed, 4k photorealistic.`;
 
 
 const textEsmer = `A COMPLETELY NEW image will be created from scratch. DO NOT edit, paint over, or alter the provided images. Generate a brand new photograph based on the following strict rules:
@@ -132,13 +137,13 @@ CLOTHING: The clothing should resemble the garment type in Image 2 but MUST be s
 
 POSE, EXPRESSION AND ATMOSPHERE (Take ONLY the "Action/Emotion" from Image 2):
 Recreate the exact pose, body language, camera angle, and lighting/shadows from Image 2. 
+
 EMOTION (CRITICAL): Capture the exact facial expression, emotion, and facial muscle tension from Image 2. However, you must apply this pure emotion to the face from Image 1 WITHOUT transferring any artificial makeup or physical styling from Image 2.
 
 ENVIRONMENT (Take from Image 3 if provided, otherwise Image 2):
-If a third image is attached, use that specific location as the background environment. If there is no third image, recreate the background style of the second image. The environmental lighting and day/night mood must always match the lighting hitting the subject.
+If a third image is attached, use that specific location as the background environment. If there is no third image, recreate the background style of the second image. The environmental lighting and day/night mood must always match the lighting hitting the person.
 
-TECHNICAL:
-Highly detailed, 8k photorealistic. Aspect ratio MUST be 9:16.`;
+Highly detailed, 4k photorealistic.`;
 
 
 const kizilImg = "https://img.webme.com/pic/b/bg-resim-yukleme/1-KIZIL.png";
